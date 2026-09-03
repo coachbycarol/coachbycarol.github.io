@@ -1,0 +1,803 @@
+<title>Il Tuo Inizio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Antic&family=Caveat:wght@500;700&display=swap');
+
+  :root{
+    --bg:#EFEDEA;
+    --surface:#FFFFFF;
+    --surface-tint-a:#FDE6EC;
+    --surface-tint-b:#EFE5EB;
+    --ink:#181717;
+    --ink-soft:#5b5451;
+    --ink-faint:#8a8280;
+    --pink:#FC9DB3;
+    --violet:#A5839D;
+    --coral:#FA6F30;
+    --peach:#FAD4AE;
+    --accent:var(--pink);
+    --accent-2:var(--violet);
+    --accent-3:var(--coral);
+    --border:rgba(24,23,23,.13);
+    --border-soft:rgba(24,23,23,.08);
+    --shadow:0 24px 48px -28px rgba(24,23,23,.35);
+    --radius:22px;
+    --radius-sm:13px;
+    --font-display:'Antic',Georgia,serif;
+    --font-body:'Antic',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --font-script:'Caveat','Segoe Script',cursive;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#171213;
+      --surface:#231C1F;
+      --surface-tint-a:#3B242E;
+      --surface-tint-b:#2E2530;
+      --ink:#F6F0EB;
+      --ink-soft:#CBC0BB;
+      --ink-faint:#8f8582;
+      --pink:#FF9EB8;
+      --violet:#C9A7BE;
+      --coral:#FF8A54;
+      --peach:#4A3625;
+      --border:rgba(246,240,235,.16);
+      --border-soft:rgba(246,240,235,.09);
+      --shadow:0 24px 48px -28px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#171213;
+    --surface:#231C1F;
+    --surface-tint-a:#3B242E;
+    --surface-tint-b:#2E2530;
+    --ink:#F6F0EB;
+    --ink-soft:#CBC0BB;
+    --ink-faint:#8f8582;
+    --pink:#FF9EB8;
+    --violet:#C9A7BE;
+    --coral:#FF8A54;
+    --peach:#4A3625;
+    --border:rgba(246,240,235,.16);
+    --border-soft:rgba(246,240,235,.09);
+    --shadow:0 24px 48px -28px rgba(0,0,0,.6);
+  }
+
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.55;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:var(--font-display);font-weight:700;text-wrap:balance;margin:0;}
+  p{margin:0;}
+  ::selection{background:var(--pink);color:#181717;}
+  a{color:inherit;}
+  .container{max-width:720px;margin:0 auto;padding:0 24px;}
+
+  /* progress bar */
+  #progress{position:sticky;top:0;z-index:40;background:color-mix(in srgb, var(--bg) 88%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--border-soft);}
+  #progress-track{height:3px;background:var(--border-soft);}
+  #progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--violet),var(--pink));transition:width .4s ease;}
+  #progress-label{display:flex;align-items:center;justify-content:space-between;padding:9px 24px;max-width:720px;margin:0 auto;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);}
+  #progress-label b{color:var(--ink);font-weight:700;}
+
+  /* language toggle */
+  .lang-toggle{position:absolute;top:20px;right:20px;display:flex;gap:2px;background:var(--surface);border:1px solid var(--border-soft);border-radius:999px;padding:3px;z-index:2;}
+  .lang-toggle button{border:none;background:transparent;padding:6px 13px;border-radius:999px;font-size:12.5px;font-weight:700;font-family:var(--font-body);cursor:pointer;color:var(--ink-faint);}
+  .lang-toggle button.active{background:var(--pink);color:#181717;}
+
+  /* hero */
+  .hero{position:relative;padding:76px 24px 88px;overflow:hidden;background:
+      radial-gradient(120% 90% at 15% -10%, var(--pink) 0%, transparent 55%),
+      radial-gradient(120% 90% at 100% 0%, var(--violet) 0%, transparent 50%),
+      radial-gradient(60% 60% at 60% 110%, var(--coral) 0%, transparent 60%),
+      var(--bg);
+  }
+  .hero-inner{max-width:720px;margin:0 auto;position:relative;}
+  .eyebrow{font-family:var(--font-script);font-size:32px;color:var(--accent-2);display:inline-block;transform:rotate(-2deg);margin-bottom:6px;}
+  .hero h1{font-size:clamp(34px,6vw,54px);line-height:1.08;letter-spacing:-.01em;}
+  .hero h1 em{font-style:normal;color:var(--pink);}
+  .hero p.lede{margin-top:20px;font-size:18px;color:var(--ink-soft);max-width:56ch;}
+  .hero-meta{display:flex;gap:18px;flex-wrap:wrap;margin-top:28px;font-size:14px;color:var(--ink-soft);}
+  .hero-meta span.pill{display:inline-flex;align-items:center;gap:7px;background:var(--surface);border:1px solid var(--border-soft);padding:7px 14px;border-radius:999px;}
+  .hero-cta{margin-top:34px;}
+  .btn{appearance:none;border:none;cursor:pointer;font-family:var(--font-body);font-weight:700;font-size:16px;border-radius:999px;padding:15px 30px;display:inline-flex;align-items:center;gap:10px;transition:transform .15s ease, box-shadow .15s ease;text-decoration:none;}
+  .btn:active{transform:scale(.97);}
+  .btn-primary{background:var(--pink);color:#181717;box-shadow:0 14px 30px -12px color-mix(in srgb, var(--pink) 70%, transparent);}
+  .btn-primary:hover{box-shadow:0 18px 36px -12px color-mix(in srgb, var(--pink) 80%, transparent);}
+  .btn-primary:disabled{opacity:.55;cursor:not-allowed;box-shadow:none;}
+  .btn-ghost{background:var(--surface);border:1.5px solid var(--border);color:var(--ink);font-size:14.5px;padding:12px 20px;}
+  .btn-ghost:hover{border-color:var(--accent-2);}
+
+  /* chapters */
+  form{display:block;}
+  .chapter{padding:56px 0 8px;border-top:1px solid var(--border-soft);}
+  .chapter-head{display:flex;gap:16px;align-items:flex-start;margin-bottom:26px;}
+  .chapter-num{font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--accent-2);border:1.5px solid var(--accent-2);border-radius:50%;width:34px;height:34px;flex:none;display:flex;align-items:center;justify-content:center;}
+  .chapter-title{font-size:26px;}
+  .chapter-sub{color:var(--ink-soft);font-size:15px;margin-top:8px;max-width:58ch;}
+
+  .field{margin-top:22px;}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media (max-width:560px){.field-row{grid-template-columns:1fr;}}
+  label.q{display:block;font-weight:700;font-size:15px;margin-bottom:9px;}
+  label.q .opt{font-weight:400;color:var(--ink-faint);text-transform:none;letter-spacing:0;font-size:13px;}
+  .hint{font-size:13px;color:var(--ink-faint);margin-top:6px;}
+
+  input[type=text],input[type=email],input[type=tel],input[type=number],textarea{
+    width:100%;font-family:var(--font-body);font-size:15.5px;color:var(--ink);
+    background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-sm);
+    padding:13px 15px;transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  textarea{resize:vertical;min-height:88px;}
+  input::placeholder,textarea::placeholder{color:var(--ink-faint);}
+  input:focus,textarea:focus{outline:none;border-color:var(--pink);box-shadow:0 0 0 4px color-mix(in srgb, var(--pink) 22%, transparent);}
+
+  .chips{display:flex;flex-wrap:wrap;gap:10px;}
+  .chip-input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;}
+  .chip-label{cursor:pointer;user-select:none;padding:11px 18px;border-radius:999px;border:1.5px solid var(--border);background:var(--surface);font-size:14.5px;transition:all .15s ease;}
+  .chip-input:checked + .chip-label{background:var(--pink);border-color:var(--pink);color:#181717;font-weight:700;}
+  .chip-input:focus-visible + .chip-label{outline:2px solid var(--accent-2);outline-offset:2px;}
+
+  .altro-input{margin-top:10px;display:none;max-width:340px;}
+  .altro-input.show{display:block;}
+
+  .conditional{display:none;margin-top:14px;}
+  .conditional.show{display:block;}
+
+  .consent{display:flex;gap:12px;align-items:flex-start;background:var(--peach);border-radius:var(--radius-sm);padding:16px;margin-top:22px;}
+  .consent input{margin-top:3px;flex:none;width:18px;height:18px;accent-color:var(--pink);}
+  .consent p{font-size:13.5px;color:var(--ink-soft);}
+
+  .photo-drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:2px dashed var(--border);border-radius:var(--radius-sm);padding:30px 16px;cursor:pointer;text-align:center;background:var(--surface);transition:border-color .15s ease;}
+  .photo-drop:hover{border-color:var(--pink);}
+  .photo-drop-icon{font-size:30px;}
+  .photo-drop-text{font-weight:700;font-size:15px;}
+  .photo-drop-hint{font-size:12.5px;color:var(--ink-faint);}
+  .photo-previews{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+  .photo-thumb{position:relative;width:84px;height:84px;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border-soft);flex:none;}
+  .photo-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+  .photo-thumb button{position:absolute;top:2px;right:2px;width:20px;height:20px;border-radius:50%;border:none;background:rgba(24,23,23,.65);color:#fff;font-size:12px;line-height:1;cursor:pointer;}
+
+  .submit-wrap{padding:40px 0 90px;text-align:center;}
+  .submit-wrap .btn{width:100%;justify-content:center;font-size:17px;padding:17px;}
+  .error-msg{color:#c23b3b;font-size:14px;margin-top:14px;display:none;}
+  .error-msg.show{display:block;}
+
+  /* thank you overlay */
+  #thanks{position:fixed;inset:0;background:
+      radial-gradient(120% 90% at 20% 0%, var(--pink) 0%, transparent 55%),
+      radial-gradient(120% 90% at 100% 100%, var(--violet) 0%, transparent 50%),
+      var(--bg);
+    z-index:100;display:none;align-items:center;justify-content:center;padding:32px;text-align:center;}
+  #thanks.show{display:flex;}
+  #thanks .quote{font-family:var(--font-script);font-size:clamp(26px,4.4vw,36px);color:var(--ink);max-width:620px;line-height:1.35;}
+  #thanks .signature{margin-top:10px;color:var(--accent-3);font-weight:700;font-family:var(--font-body);letter-spacing:.03em;text-transform:uppercase;font-size:13px;}
+  #thanks .note{margin-top:28px;color:var(--ink-soft);font-size:15px;max-width:50ch;}
+  #thanks .btn{margin-top:30px;}
+
+  footer{padding:30px 24px 40px;text-align:center;color:var(--ink-faint);font-size:13px;}
+  footer button{background:none;border:none;color:var(--ink-faint);font-size:12px;cursor:pointer;text-decoration:underline;padding:6px;font-family:var(--font-body);}
+
+
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important;}}
+</style>
+
+<div id="app">
+
+  <div id="progress">
+    <div id="progress-track"><div id="progress-fill"></div></div>
+    <div id="progress-label"><span data-it="Il tuo questionario" data-en="Your questionnaire"></span><span><b id="progress-step">1</b>&nbsp;/ 10</span></div>
+  </div>
+
+  <section class="hero">
+    <div class="lang-toggle" role="group" aria-label="Lingua / Language">
+      <button type="button" class="lang-btn active" data-lang="it">IT</button>
+      <button type="button" class="lang-btn" data-lang="en">EN</button>
+    </div>
+    <div class="hero-inner">
+      <span class="eyebrow" data-it="Ciao, sono Carol 👋" data-en="Hi, I'm Carol 👋"></span>
+      <h1><span data-it="Prima di allenarci insieme," data-en="Before we train together,"></span><br><span data-it="voglio conoscere " data-en="I want to get to know "></span><em data-it="te" data-en="you"></em>.</h1>
+      <p class="lede" data-it="Non solo il tuo obiettivo — la tua storia, i tuoi tempi reali, le tue paure. Non c'è una risposta giusta o sbagliata: rispondi con sincerità, il percorso lo costruiamo insieme dopo." data-en="Not just your goal — your story, your real schedule, your fears too. There's no right or wrong answer: be honest, we'll build the plan together afterwards."></p>
+      <div class="hero-meta">
+        <span class="pill">⏱️ <span data-it="10–12 minuti" data-en="10–12 minutes"></span></span>
+        <span class="pill">🔒 <span data-it="Resta tra noi due" data-en="Stays between us"></span></span>
+        <span class="pill">💗 <span data-it="Nessun giudizio, promesso" data-en="No judgment, promised"></span></span>
+      </div>
+      <div class="hero-cta">
+        <button type="button" class="btn btn-primary" id="start-btn"><span data-it="Iniziamo" data-en="Let's start"></span> ↓</button>
+      </div>
+    </div>
+  </section>
+
+  <form id="onboarding-form" novalidate action="https://formsubmit.co/el/wudiva" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="_subject" id="fs-subject" value="Nuova risposta al questionario">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" id="fs-next" value="">
+    <input type="hidden" name="_replyto" id="fs-replyto" value="">
+    <div class="container">
+
+      <!-- 1 -->
+      <div class="chapter" data-step="1">
+        <div class="chapter-head">
+          <span class="chapter-num">1</span>
+          <div><h2 class="chapter-title" data-it="Chi sei" data-en="About you"></h2>
+          <p class="chapter-sub" data-it="Le basi, per poterti scrivere e chiamarti per nome fin da subito." data-en="The basics, so I can reach out and call you by name right away."></p></div>
+        </div>
+        <div class="field field-row">
+          <div><label class="q" for="nome" data-it="Nome" data-en="First name"></label><input type="text" id="nome" name="nome" required data-it-ph="Il tuo nome" data-en-ph="Your first name" placeholder="Il tuo nome"></div>
+          <div><label class="q" for="cognome" data-it="Cognome" data-en="Last name"></label><input type="text" id="cognome" name="cognome" data-it-ph="Il tuo cognome" data-en-ph="Your last name" placeholder="Il tuo cognome"></div>
+        </div>
+        <div class="field field-row">
+          <div><label class="q" for="eta" data-it="Età" data-en="Age"></label><input type="number" id="eta" name="eta" min="14" max="90" data-it-ph="Es. 27" data-en-ph="E.g. 27" placeholder="Es. 27"></div>
+          <div><label class="q" for="citta" data-it="Città / Paese" data-en="City / Country"></label><input type="text" id="citta" name="citta" data-it-ph="Dove vivi ora" data-en-ph="Where you live now" placeholder="Dove vivi ora"></div>
+        </div>
+        <div class="field field-row">
+          <div><label class="q" for="email" data-it="Email"></label><input type="email" id="email" name="email" required placeholder="nome@email.com"></div>
+          <div><label class="q" for="telefono" data-it="WhatsApp / telefono" data-en="WhatsApp / phone"></label><input type="tel" id="telefono" name="telefono" data-it-ph="Con prefisso" data-en-ph="Include country code" placeholder="Con prefisso"></div>
+        </div>
+        <div class="field">
+          <label class="q" for="social"><span data-it="Il tuo profilo Instagram o TikTok" data-en="Your Instagram or TikTok handle"></span> <span class="opt" data-it="(facoltativo)" data-en="(optional)"></span></label>
+          <input type="text" id="social" name="social" data-it-ph="@iltuoprofilo" data-en-ph="@yourhandle" placeholder="@iltuoprofilo">
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="chapter" data-step="2">
+        <div class="chapter-head">
+          <span class="chapter-num">2</span>
+          <div><h2 class="chapter-title" data-it="Il tuo punto di partenza" data-en="Your starting point"></h2>
+          <p class="chapter-sub" data-it='Mi serve capire da dove partiamo davvero, non da dove "dovresti" essere.' data-en='I need to know where you&#39;re really starting from — not where you &quot;should&quot; be.'></p></div>
+        </div>
+        <div class="field">
+          <label class="q" data-it="Ti sei mai allenata con costanza prima d'ora?" data-en="Have you ever trained consistently before?"></label>
+          <div class="chips" data-group="allenamento_precedente">
+            <input class="chip-input" type="radio" name="allenamento_precedente" id="ap1" value="Mai, sarebbe la prima volta"><label class="chip-label" for="ap1" data-it="Mai, sarebbe la prima volta" data-en="Never, this would be my first time"></label>
+            <input class="chip-input" type="radio" name="allenamento_precedente" id="ap2" value="Ogni tanto, a fasi alterne"><label class="chip-label" for="ap2" data-it="Ogni tanto, a fasi alterne" data-en="Now and then, on and off"></label>
+            <input class="chip-input" type="radio" name="allenamento_precedente" id="ap3" value="Sì, in passato con costanza"><label class="chip-label" for="ap3" data-it="Sì, in passato con costanza" data-en="Yes, consistently in the past"></label>
+            <input class="chip-input" type="radio" name="allenamento_precedente" id="ap4" value="Mi alleno già con costanza oggi"><label class="chip-label" for="ap4" data-it="Mi alleno già con costanza oggi" data-en="I already train consistently now"></label>
+          </div>
+        </div>
+        <div class="field">
+          <label class="q" for="daQuanto"><span data-it="Da quanto tempo, più o meno?" data-en="For roughly how long?"></span> <span class="opt" data-it="(anche a spanne)" data-en="(a rough estimate is fine)"></span></label>
+          <input type="text" id="daQuanto" name="daQuanto" data-it-ph="Es. qualche mese, 2 anni, mai iniziata..." data-en-ph="E.g. a few months, 2 years, never started..." placeholder="Es. qualche mese, 2 anni, mai iniziata...">
+        </div>
+        <div class="field">
+          <label class="q" data-it="Hai già lavorato con un personal trainer o coach online?" data-en="Have you worked with a personal trainer or online coach before?"></label>
+          <div class="chips" data-group="coachPrima">
+            <input class="chip-input" type="radio" name="coachPrima" id="cp-si" value="Sì">
+            <label class="chip-label" for="cp-si" data-it="Sì" data-en="Yes"></label>
+            <input class="chip-input" type="radio" name="coachPrima" id="cp-no" value="No">
+            <label class="chip-label" for="cp-no" data-it="No"></label>
+          </div>
+        </div>
+        <div class="field conditional" id="esperienza-wrap">
+          <label class="q" for="esperienzaPrecedente" data-it="Cosa ha funzionato e cosa no in quella collaborazione?" data-en="What worked and what didn't in that experience?"></label>
+          <textarea id="esperienzaPrecedente" name="esperienzaPrecedente" data-it-ph="Raccontami senza filtri, mi serve per non ripetere gli stessi errori." data-en-ph="Tell me honestly — it helps me avoid repeating the same mistakes." placeholder="Raccontami senza filtri, mi serve per non ripetere gli stessi errori."></textarea>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="chapter" data-step="3">
+        <div class="chapter-head">
+          <span class="chapter-num">3</span>
+          <div><h2 class="chapter-title" data-it="Dove vuoi arrivare" data-en="Where you want to get to"></h2>
+          <p class="chapter-sub" data-it="Puoi scegliere più di una risposta." data-en="You can choose more than one answer."></p></div>
+        </div>
+        <div class="field">
+          <label class="q" data-it="Cosa vorresti raggiungere con questo percorso?" data-en="What would you like to achieve with this journey?"></label>
+          <div class="chips" data-group="obiettivi">
+            <input class="chip-input" type="checkbox" name="obiettivi" id="ob1" value="Sentirmi più forte e sicura di me"><label class="chip-label" for="ob1" data-it="Sentirmi più forte e sicura di me" data-en="Feel stronger and more confident"></label>
+            <input class="chip-input" type="checkbox" name="obiettivi" id="ob2" value="Tonificare senza mettere troppa massa"><label class="chip-label" for="ob2" data-it="Tonificare senza mettere troppa massa" data-en="Tone up without bulking too much"></label>
+            <input class="chip-input" type="checkbox" name="obiettivi" id="ob3" value="Costruire costanza vera, non l'ennesimo tentativo"><label class="chip-label" for="ob3" data-it="Costruire costanza vera, non l'ennesimo tentativo" data-en="Build real consistency, not just another attempt"></label>
+            <input class="chip-input" type="checkbox" name="obiettivi" id="ob4" value="Capire cosa mangiare senza ossessionarmi"><label class="chip-label" for="ob4" data-it="Capire cosa mangiare senza ossessionarmi" data-en="Understand what to eat without obsessing"></label>
+            <input class="chip-input" type="checkbox" name="obiettivi" id="ob5" value="Allenarmi senza vergogna o paura del giudizio"><label class="chip-label" for="ob5" data-it="Allenarmi senza vergogna o paura del giudizio" data-en="Train without shame or fear of judgment"></label>
+            <input class="chip-input" type="checkbox" name="obiettivi" id="ob6" value="Altro">
+            <label class="chip-label" for="ob6" data-it="Altro" data-en="Other"></label>
+          </div>
+          <input type="text" class="altro-input" id="obiettiviAltro" name="obiettiviAltro" data-it-ph="Dimmi pure di più" data-en-ph="Tell me more" placeholder="Dimmi pure di più">
+        </div>
+        <div class="field">
+          <label class="q" data-it="Cosa ti frena di più, oggi?" data-en="What holds you back the most, today?"></label>
+          <div class="chips" data-group="ostacoloPrincipale">
+            <input class="chip-input" type="radio" name="ostacoloPrincipale" id="os1" value="Il tempo"><label class="chip-label" for="os1" data-it="Il tempo" data-en="Time"></label>
+            <input class="chip-input" type="radio" name="ostacoloPrincipale" id="os2" value="La motivazione"><label class="chip-label" for="os2" data-it="La motivazione" data-en="Motivation"></label>
+            <input class="chip-input" type="radio" name="ostacoloPrincipale" id="os3" value="Non so da dove iniziare"><label class="chip-label" for="os3" data-it="Non so da dove iniziare" data-en="I don't know where to start"></label>
+            <input class="chip-input" type="radio" name="ostacoloPrincipale" id="os4" value="Il giudizio / la vergogna"><label class="chip-label" for="os4" data-it="Il giudizio / la vergogna" data-en="Judgment / shame"></label>
+            <input class="chip-input" type="radio" name="ostacoloPrincipale" id="os5" value="Infortuni o dolori"><label class="chip-label" for="os5" data-it="Infortuni o dolori" data-en="Injuries or pain"></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="chapter" data-step="4">
+        <div class="chapter-head">
+          <span class="chapter-num">4</span>
+          <div><h2 class="chapter-title" data-it="La tua vita reale" data-en="Your real life"></h2>
+          <p class="chapter-sub" data-it="Un percorso funziona solo se regge nella vita che hai davvero, non in quella ideale." data-en="A plan only works if it fits the life you actually have, not an ideal one."></p></div>
+        </div>
+        <div class="field">
+          <label class="q" data-it="Quante volte a settimana puoi realisticamente allenarti?" data-en="How many times a week can you realistically train?"></label>
+          <div class="chips" data-group="giorniSettimana">
+            <input class="chip-input" type="radio" name="giorniSettimana" id="gs1" value="1-2 volte"><label class="chip-label" for="gs1" data-it="1-2 volte" data-en="1-2 times"></label>
+            <input class="chip-input" type="radio" name="giorniSettimana" id="gs2" value="3-4 volte"><label class="chip-label" for="gs2" data-it="3-4 volte" data-en="3-4 times"></label>
+            <input class="chip-input" type="radio" name="giorniSettimana" id="gs3" value="5+ volte"><label class="chip-label" for="gs3" data-it="5+ volte" data-en="5+ times"></label>
+            <input class="chip-input" type="radio" name="giorniSettimana" id="gs4" value="Varia molto di settimana in settimana"><label class="chip-label" for="gs4" data-it="Varia molto" data-en="Varies a lot"></label>
+          </div>
+        </div>
+        <div class="field">
+          <label class="q" data-it="Dove ti alleni (o pensi di allenarti)?" data-en="Where do you train (or plan to)?"></label>
+          <div class="chips" data-group="doveAlleni">
+            <input class="chip-input" type="checkbox" name="doveAlleni" id="da1" value="Palestra"><label class="chip-label" for="da1" data-it="Palestra" data-en="Gym"></label>
+            <input class="chip-input" type="checkbox" name="doveAlleni" id="da2" value="Casa"><label class="chip-label" for="da2" data-it="Casa" data-en="Home"></label>
+            <input class="chip-input" type="checkbox" name="doveAlleni" id="da3" value="Non ho ancora deciso"><label class="chip-label" for="da3" data-it="Non ho ancora deciso" data-en="Haven't decided yet"></label>
+          </div>
+        </div>
+        <div class="field field-row">
+          <div>
+            <label class="q" data-it="Quanto tempo hai a sessione?" data-en="How much time do you have per session?"></label>
+            <div class="chips" data-group="tempoSessione">
+              <input class="chip-input" type="radio" name="tempoSessione" id="ts1" value="Meno di 30 min"><label class="chip-label" for="ts1">&lt; 30 min</label>
+              <input class="chip-input" type="radio" name="tempoSessione" id="ts2" value="30-45 min"><label class="chip-label" for="ts2">30-45 min</label>
+              <input class="chip-input" type="radio" name="tempoSessione" id="ts3" value="45-60 min"><label class="chip-label" for="ts3">45-60 min</label>
+              <input class="chip-input" type="radio" name="tempoSessione" id="ts4" value="Oltre 60 min"><label class="chip-label" for="ts4">60+ min</label>
+            </div>
+          </div>
+          <div>
+            <label class="q" data-it="Viaggi spesso o hai orari molto variabili?" data-en="Do you travel often or have a very variable schedule?"></label>
+            <div class="chips" data-group="viaggiOrari">
+              <input class="chip-input" type="radio" name="viaggiOrari" id="vo1" value="Sì, spesso"><label class="chip-label" for="vo1" data-it="Sì, spesso" data-en="Yes, often"></label>
+              <input class="chip-input" type="radio" name="viaggiOrari" id="vo2" value="A volte"><label class="chip-label" for="vo2" data-it="A volte" data-en="Sometimes"></label>
+              <input class="chip-input" type="radio" name="viaggiOrari" id="vo3" value="No, routine stabile"><label class="chip-label" for="vo3" data-it="No, routine stabile" data-en="No, stable routine"></label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="chapter" data-step="5">
+        <div class="chapter-head">
+          <span class="chapter-num">5</span>
+          <div><h2 class="chapter-title" data-it="Corpo e allenamento" data-en="Body and training"></h2>
+          <p class="chapter-sub" data-it="Questa parte mi serve solo per allenarti in sicurezza. Scrivi con calma, nessun giudizio." data-en="This part is just so I can train you safely. Take your time, no judgment."></p></div>
+        </div>
+        <div class="field">
+          <label class="q" data-it="Quanta esperienza hai con i pesi?" data-en="How much experience do you have with weights?"></label>
+          <div class="chips" data-group="esperienzaPesi">
+            <input class="chip-input" type="radio" name="esperienzaPesi" id="ep1" value="Mai allenata con i pesi"><label class="chip-label" for="ep1" data-it="Mai allenata con i pesi" data-en="Never trained with weights"></label>
+            <input class="chip-input" type="radio" name="esperienzaPesi" id="ep2" value="Alle prime armi"><label class="chip-label" for="ep2" data-it="Alle prime armi" data-en="Just starting out"></label>
+            <input class="chip-input" type="radio" name="esperienzaPesi" id="ep3" value="Ho già una base"><label class="chip-label" for="ep3" data-it="Ho già una base" data-en="I already have some experience"></label>
+            <input class="chip-input" type="radio" name="esperienzaPesi" id="ep4" value="Mi alleno già con i pesi regolarmente"><label class="chip-label" for="ep4" data-it="Mi alleno già regolarmente" data-en="I already train with weights regularly"></label>
+          </div>
+        </div>
+        <div class="field">
+          <label class="q" for="infortuni"><span data-it="Hai infortuni, dolori cronici o limitazioni fisiche di cui dovrei essere a conoscenza?" data-en="Do you have any injuries, chronic pain or physical limitations I should know about?"></span> <span class="opt" data-it="(facoltativo)" data-en="(optional)"></span></label>
+          <textarea id="infortuni" name="infortuni" data-it-ph="Es. ginocchio, schiena, spalla... anche solo 'nulla di particolare'" data-en-ph="E.g. knee, back, shoulder... or just 'nothing in particular'" placeholder="Es. ginocchio, schiena, spalla... anche solo 'nulla di particolare'"></textarea>
+        </div>
+        <div class="field">
+          <label class="q" for="condizioniMediche"><span data-it="C'è qualcos'altro sul piano fisico che è utile che io sappia?" data-en="Is there anything else about your physical health that's useful for me to know?"></span> <span class="opt" data-it="(facoltativo, resta tra noi)" data-en="(optional, stays between us)"></span></label>
+          <textarea id="condizioniMediche" name="condizioniMediche" data-it-ph="Scrivi solo se ti va e solo ciò che ritieni utile." data-en-ph="Only share what you're comfortable with and think is useful." placeholder="Scrivi solo se ti va e solo ciò che ritieni utile."></textarea>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="chapter" data-step="6">
+        <div class="chapter-head">
+          <span class="chapter-num">6</span>
+          <div><h2 class="chapter-title" data-it="Foto iniziali e misure" data-en="Starting photos and measurements"></h2>
+          <p class="chapter-sub" data-it="Servono solo a te e a Carol per vedere i progressi nel tempo — non a nessun altro." data-en="These are just for you and Carol to track progress over time — no one else sees them."></p></div>
+        </div>
+        <div class="field field-row">
+          <div><label class="q" for="altezza" data-it="Altezza (cm)" data-en="Height (cm)"></label><input type="number" id="altezza" name="altezza" data-it-ph="Es. 165" data-en-ph="E.g. 165" placeholder="Es. 165"></div>
+          <div><label class="q" for="peso"><span data-it="Peso (kg)" data-en="Weight (kg)"></span> <span class="opt" data-it="(facoltativo)" data-en="(optional)"></span></label><input type="number" id="peso" name="peso" data-it-ph="Es. 60" data-en-ph="E.g. 60" placeholder="Es. 60"></div>
+        </div>
+        <div class="field field-row">
+          <div><label class="q" for="vita" data-it="Girovita (cm)" data-en="Waist (cm)"></label><input type="number" id="vita" name="vita" data-it-ph="Es. 70" data-en-ph="E.g. 70" placeholder="Es. 70"></div>
+          <div><label class="q" for="fianchi" data-it="Girofianchi (cm)" data-en="Hips (cm)"></label><input type="number" id="fianchi" name="fianchi" data-it-ph="Es. 95" data-en-ph="E.g. 95" placeholder="Es. 95"></div>
+        </div>
+        <div class="field field-row">
+          <div><label class="q" for="coscia"><span data-it="Giro coscia (cm)" data-en="Thigh (cm)"></span> <span class="opt" data-it="(facoltativo)" data-en="(optional)"></span></label><input type="number" id="coscia" name="coscia" data-it-ph="Es. 55" data-en-ph="E.g. 55" placeholder="Es. 55"></div>
+          <div><label class="q" for="braccio"><span data-it="Giro braccio (cm)" data-en="Arm (cm)"></span> <span class="opt" data-it="(facoltativo)" data-en="(optional)"></span></label><input type="number" id="braccio" name="braccio" data-it-ph="Es. 27" data-en-ph="E.g. 27" placeholder="Es. 27"></div>
+        </div>
+        <p class="hint" data-it="Se non hai un metro da sarta a portata di mano, lascia pure vuoto: le prendiamo insieme al primo check-in." data-en="If you don't have a tape measure handy, just leave it blank — we'll take them together at the first check-in."></p>
+
+        <div class="field" style="margin-top:30px;">
+          <label class="q"><span data-it="Foto iniziali" data-en="Starting photos"></span> <span class="opt" data-it="(fronte, lato, retro — quello con cui ti senti più a tuo agio)" data-en="(front, side, back — whatever you're most comfortable with)"></span></label>
+          <p class="hint" style="margin-top:0;margin-bottom:14px;" data-it="Tocca il riquadro per scegliere le foto dalla galleria o scattarle sul momento. Arrivano a Carol insieme al resto delle risposte, restano visibili solo a lei." data-en="Tap the box to choose photos from your gallery or take them on the spot. They're sent to Carol along with the rest of your answers, and stay visible only to her."></p>
+          <label id="photo-drop" for="fotoInput" class="photo-drop">
+            <span class="photo-drop-icon">📷</span>
+            <span class="photo-drop-text" data-it="Tocca per caricare le foto" data-en="Tap to upload photos"></span>
+            <span class="photo-drop-hint" data-it="JPG o PNG, fino a 4 foto" data-en="JPG or PNG, up to 4 photos"></span>
+          </label>
+          <input type="file" id="fotoInput" accept="image/*" multiple style="display:none;">
+          <input type="file" id="fotoSubmit1" name="Foto 1" style="display:none;">
+          <input type="file" id="fotoSubmit2" name="Foto 2" style="display:none;">
+          <input type="file" id="fotoSubmit3" name="Foto 3" style="display:none;">
+          <input type="file" id="fotoSubmit4" name="Foto 4" style="display:none;">
+          <div id="photo-previews" class="photo-previews"></div>
+          <p class="hint" id="photo-status"></p>
+
+          <div class="consent" style="margin-top:18px;">
+            <input type="checkbox" id="consensoFotoSocial" name="consensoFotoSocial">
+            <p><label for="consensoFotoSocial" data-it="Autorizzo Carol a usare le mie foto prima/dopo anche per i social (senza mostrare mai il viso). Questa scelta è separata dal resto e posso dire di no senza problemi." data-en="I authorize Carol to also use my before/after photos on social media (face never shown). This choice is separate from the rest and I can say no with no issue."></label></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="chapter" data-step="7">
+        <div class="chapter-head">
+          <span class="chapter-num">7</span>
+          <div><h2 class="chapter-title" data-it="Il tuo rapporto con il cibo" data-en="Your relationship with food"></h2>
+          <p class="chapter-sub" data-it="Niente numeri o regole qui: voglio solo capire come stanno le cose oggi, per non ripetere gli errori delle diete che magari hai già provato." data-en="No numbers or rules here: I just want to understand where things stand today, so we don't repeat the mistakes of diets you may have already tried."></p></div>
+        </div>
+        <div class="field">
+          <label class="q" for="rapportoCibo"><span data-it="Come descriveresti oggi il tuo rapporto con il cibo?" data-en="How would you describe your relationship with food today?"></span> <span class="opt" data-it="(non c'è una risposta giusta)" data-en="(there's no right answer)"></span></label>
+          <textarea id="rapportoCibo" name="rapportoCibo" data-it-ph="Scrivi liberamente, con le tue parole." data-en-ph="Write freely, in your own words." placeholder="Scrivi liberamente, con le tue parole."></textarea>
+        </div>
+        <div class="field">
+          <label class="q" data-it="Hai mai seguito diete molto restrittive?" data-en="Have you ever followed very restrictive diets?"></label>
+          <div class="chips" data-group="dietePassate">
+            <input class="chip-input" type="radio" name="dietePassate" id="dp1" value="Sì, spesso"><label class="chip-label" for="dp1" data-it="Sì, spesso" data-en="Yes, often"></label>
+            <input class="chip-input" type="radio" name="dietePassate" id="dp2" value="Qualche volta"><label class="chip-label" for="dp2" data-it="Qualche volta" data-en="A few times"></label>
+            <input class="chip-input" type="radio" name="dietePassate" id="dp3" value="Mai"><label class="chip-label" for="dp3" data-it="Mai" data-en="Never"></label>
+          </div>
+        </div>
+        <div class="field">
+          <label class="q" for="giornataTipo"><span data-it="Raccontami a grandi linee come mangi in una giornata tipo" data-en="Tell me roughly what a typical day of eating looks like for you"></span> <span class="opt" data-it="(nessun numero, solo abitudini)" data-en="(no numbers, just habits)"></span></label>
+          <textarea id="giornataTipo" name="giornataTipo" data-it-ph="Es. colazione dolce, pranzo fuori, spuntini la sera..." data-en-ph="E.g. sweet breakfast, lunch out, evening snacks..." placeholder="Es. colazione dolce, pranzo fuori, spuntini la sera..."></textarea>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="chapter" data-step="8">
+        <div class="chapter-head">
+          <span class="chapter-num">8</span>
+          <div><h2 class="chapter-title" data-it="Testa e motivazione" data-en="Mindset and motivation"></h2>
+          <p class="chapter-sub" data-it="La parte più importante, anche se non sembra." data-en="The most important part, even if it doesn't seem like it."></p></div>
+        </div>
+        <div class="field">
+          <label class="q" for="percheOra" data-it="Perché hai deciso di iniziare proprio adesso?" data-en="Why did you decide to start right now?"></label>
+          <textarea id="percheOra" name="percheOra" data-it-ph="Cosa è successo o cosa è cambiato ultimamente?" data-en-ph="What happened, or what's changed recently?" placeholder="Cosa è successo o cosa è cambiato ultimamente?"></textarea>
+        </div>
+        <div class="field">
+          <label class="q" for="successo90" data-it="Tra 90 giorni, cosa dovrebbe essere successo perché tu ti senta soddisfatta di questo percorso?" data-en="In 90 days, what would need to have happened for you to feel satisfied with this journey?"></label>
+          <textarea id="successo90" name="successo90" data-it-ph="Non deve essere per forza sul fisico." data-en-ph="It doesn't have to be about your body." placeholder="Non deve essere per forza sul fisico."></textarea>
+        </div>
+      </div>
+
+      <!-- 9 -->
+      <div class="chapter" data-step="9">
+        <div class="chapter-head">
+          <span class="chapter-num">9</span>
+          <div><h2 class="chapter-title" data-it="Come lavoriamo insieme" data-en="How we'll work together"></h2>
+          <p class="chapter-sub" data-it="Così ti seguo nel modo giusto per te fin dal primo giorno." data-en="So I can support you the right way from day one."></p></div>
+        </div>
+        <div class="field">
+          <label class="q" data-it="Quanto supporto vorresti da me?" data-en="How much support would you like from me?"></label>
+          <div class="chips" data-group="livelloSupporto">
+            <input class="chip-input" type="radio" name="livelloSupporto" id="ls1" value="Leggero — mi serve solo una guida"><label class="chip-label" for="ls1" data-it="Leggero — mi serve solo una guida" data-en="Light — I just need guidance"></label>
+            <input class="chip-input" type="radio" name="livelloSupporto" id="ls2" value="Costante — check-in regolari"><label class="chip-label" for="ls2" data-it="Costante — check-in regolari" data-en="Steady — regular check-ins"></label>
+            <input class="chip-input" type="radio" name="livelloSupporto" id="ls3" value="Molto presente — vorrei sentirti spesso"><label class="chip-label" for="ls3" data-it="Molto presente — vorrei sentirti spesso" data-en="Very hands-on — I'd like to hear from you often"></label>
+          </div>
+        </div>
+        <div class="field">
+          <label class="q" data-it="Come preferisci comunicare?" data-en="How do you prefer to communicate?"></label>
+          <div class="chips" data-group="comunicazionePreferita">
+            <input class="chip-input" type="checkbox" name="comunicazionePreferita" id="cm1" value="Messaggi scritti"><label class="chip-label" for="cm1" data-it="Messaggi scritti" data-en="Text messages"></label>
+            <input class="chip-input" type="checkbox" name="comunicazionePreferita" id="cm2" value="Vocali"><label class="chip-label" for="cm2" data-it="Vocali" data-en="Voice notes"></label>
+            <input class="chip-input" type="checkbox" name="comunicazionePreferita" id="cm3" value="Videochiamata"><label class="chip-label" for="cm3" data-it="Videochiamata" data-en="Video call"></label>
+            <input class="chip-input" type="checkbox" name="comunicazionePreferita" id="cm4" value="Non ho preferenze"><label class="chip-label" for="cm4" data-it="Non ho preferenze" data-en="No preference"></label>
+          </div>
+        </div>
+        <div class="field">
+          <label class="q"><span data-it="Quale pacchetto ti incuriosisce di più?" data-en="Which package interests you most?"></span> <span class="opt" data-it="(nessun vincolo, ne parliamo insieme)" data-en="(no commitment, we'll figure it out together)"></span></label>
+          <div class="chips" data-group="pacchettoInteresse">
+            <input class="chip-input" type="radio" name="pacchettoInteresse" id="pi1" value="Base"><label class="chip-label" for="pi1">Base</label>
+            <input class="chip-input" type="radio" name="pacchettoInteresse" id="pi2" value="Guidato"><label class="chip-label" for="pi2" data-it="Guidato" data-en="Guided"></label>
+            <input class="chip-input" type="radio" name="pacchettoInteresse" id="pi3" value="Premium"><label class="chip-label" for="pi3">Premium</label>
+            <input class="chip-input" type="radio" name="pacchettoInteresse" id="pi4" value="Non so ancora, meglio deciderlo insieme"><label class="chip-label" for="pi4" data-it="Non so ancora" data-en="Not sure yet"></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10 -->
+      <div class="chapter" data-step="10">
+        <div class="chapter-head">
+          <span class="chapter-num">10</span>
+          <div><h2 class="chapter-title" data-it="Un'ultima cosa" data-en="One last thing"></h2>
+          <p class="chapter-sub" data-it="Se c'è qualcosa che non è entrato nelle domande sopra, è qui il posto giusto." data-en="If there's anything the questions above didn't cover, this is the place for it."></p></div>
+        </div>
+        <div class="field">
+          <label class="q" for="notaFinale"><span data-it="C'è qualcosa che vuoi che io sappia prima di iniziare insieme?" data-en="Is there anything you'd like me to know before we start working together?"></span> <span class="opt" data-it="(facoltativo)" data-en="(optional)"></span></label>
+          <textarea id="notaFinale" name="notaFinale" data-it-ph="Scrivi pure liberamente." data-en-ph="Feel free to write anything." placeholder="Scrivi pure liberamente."></textarea>
+        </div>
+        <div class="consent">
+          <input type="checkbox" id="consenso" name="consenso" required>
+          <p><label for="consenso" data-it="Confermo che le informazioni condivise sono veritiere e autorizzo Carol a usarle per costruire il mio percorso personalizzato. Le mie risposte restano riservate." data-en="I confirm the information I've shared is accurate and I authorize Carol to use it to build my personalized plan. My answers remain confidential."></label></p>
+        </div>
+        <div class="submit-wrap">
+          <button type="submit" class="btn btn-primary" id="submit-btn" data-it="Invia il questionario 💗" data-en="Submit the questionnaire 💗"></button>
+          <p class="error-msg" id="error-msg" data-it="Controlla di aver compilato nome, email e la casella di conferma qui sopra." data-en="Please make sure you've filled in your name, email, and checked the confirmation box above."></p>
+        </div>
+      </div>
+
+    </div>
+  </form>
+
+  <footer>
+    <span data-it="Coach by Carol — questo questionario resta tra te e Carol." data-en="Coach by Carol — this questionnaire stays between you and Carol."></span>
+    <br><span style="opacity:.5;">build 2026-09-03-sito-v1</span>
+  </footer>
+
+  <div id="thanks" role="alert" aria-live="polite">
+    <div>
+      <p class="quote" data-it="&quot;Non devi amare la palestra dal primo giorno. Devi solo darti la possibilità di scoprire chi puoi diventare — io non volevo iniziare, e oggi è la parte più stabile della mia vita, ovunque io sia nel mondo.&quot;" data-en="&quot;You don't have to love the gym from day one. You just have to give yourself the chance to discover who you can become — I didn't want to start, and today it's the most stable part of my life, wherever I am in the world.&quot;"></p>
+      <p class="signature">— Carol</p>
+      <p class="note" data-it="Grazie per esserti raccontata con sincerità. Leggo tutto con calma e ti scrivo entro 48 ore per il prossimo passo. Se non l'hai già fatto, ricordati di caricare anche le foto iniziali. 💗" data-en="Thank you for sharing so honestly. I'll read everything carefully and get back to you within 48 hours with next steps. If you haven't already, remember to upload your starting photos too. 💗"></p>
+      <button type="button" class="btn btn-ghost" id="thanks-close" data-it="Torna alla pagina" data-en="Back to the page"></button>
+    </div>
+  </div>
+
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var TOTAL_STEPS = 10;
+
+  // ---------- i18n ----------
+  var I18N = {
+    it: {
+      sending: 'Invio in corso...',
+      submit: 'Invia il questionario 💗',
+      conflict: 'C\'è stato un intoppo nel salvataggio (magari qualcun altro ha inviato nello stesso istante). Riprova tra qualche secondo.',
+      photoMax: function(n){ return 'Hai già raggiunto il massimo di ' + n + ' foto.'; },
+      photoPreparing: 'Sto preparando le foto...',
+      photoReady: function(n, max){ return n + ' / ' + max + ' foto pronte'; },
+      photoError: 'Non sono riuscita a leggere una delle foto: riprova.',
+      removeLabel: 'Rimuovi'
+    },
+    en: {
+      sending: 'Sending...',
+      submit: 'Submit the questionnaire 💗',
+      conflict: 'There was a hiccup saving your response (maybe someone else submitted at the same moment). Please try again in a few seconds.',
+      photoMax: function(n){ return 'You\'ve already reached the maximum of ' + n + ' photos.'; },
+      photoPreparing: 'Preparing your photos...',
+      photoReady: function(n, max){ return n + ' / ' + max + ' photos ready'; },
+      photoError: 'I couldn\'t read one of the photos: please try again.',
+      removeLabel: 'Remove'
+    }
+  };
+  var LANG_KEY = 'cbc_lang';
+  var currentLang = 'it';
+  try {
+    var savedLang = localStorage.getItem(LANG_KEY);
+    if (savedLang === 'en' || savedLang === 'it') currentLang = savedLang;
+  } catch(e){}
+
+  function applyLang(lang){
+    currentLang = lang;
+    document.querySelectorAll('[data-it]').forEach(function(el){
+      var hasEn = el.hasAttribute('data-en');
+      var val = lang === 'en' && hasEn ? el.getAttribute('data-en') : el.getAttribute('data-it');
+      el.textContent = val;
+    });
+    document.querySelectorAll('[data-it-ph]').forEach(function(el){
+      var hasEn = el.hasAttribute('data-en-ph');
+      var val = lang === 'en' && hasEn ? el.getAttribute('data-en-ph') : el.getAttribute('data-it-ph');
+      el.setAttribute('placeholder', val);
+    });
+    document.querySelectorAll('[data-it-aria]').forEach(function(el){
+      var hasEn = el.hasAttribute('data-en-aria');
+      var val = lang === 'en' && hasEn ? el.getAttribute('data-en-aria') : el.getAttribute('data-it-aria');
+      el.setAttribute('aria-label', val);
+    });
+    document.querySelectorAll('.lang-btn').forEach(function(b){
+      var active = b.getAttribute('data-lang') === lang;
+      b.classList.toggle('active', active);
+      b.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+    document.documentElement.setAttribute('lang', lang);
+    try { localStorage.setItem(LANG_KEY, lang); } catch(e){}
+  }
+  document.querySelectorAll('.lang-btn').forEach(function(b){
+    b.addEventListener('click', function(){ applyLang(b.getAttribute('data-lang')); });
+  });
+  applyLang(currentLang);
+
+  // this page sends real client photos and personal answers by email —
+  // set the return address dynamically so it works from wherever this file is hosted.
+  document.getElementById('fs-next').value = location.origin + location.pathname + '?grazie=1';
+
+  var form = document.getElementById('onboarding-form');
+  var chapters = Array.prototype.slice.call(document.querySelectorAll('.chapter'));
+  var progressFill = document.getElementById('progress-fill');
+  var progressStep = document.getElementById('progress-step');
+
+  document.getElementById('start-btn').addEventListener('click', function(){
+    chapters[0].scrollIntoView({behavior:'smooth', block:'start'});
+  });
+
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){
+          var step = parseInt(e.target.getAttribute('data-step'), 10);
+          progressStep.textContent = String(step);
+          progressFill.style.width = (step/TOTAL_STEPS*100) + '%';
+        }
+      });
+    }, {threshold:0.35, rootMargin:'-80px 0px -40% 0px'});
+    chapters.forEach(function(c){ io.observe(c); });
+  }
+
+  // "Altro" free text toggle (obiettivi)
+  var altroCheckbox = document.getElementById('ob6');
+  var altroInput = document.getElementById('obiettiviAltro');
+  if (altroCheckbox){
+    altroCheckbox.addEventListener('change', function(){
+      altroInput.classList.toggle('show', altroCheckbox.checked);
+    });
+  }
+
+  // conditional: coach precedente
+  var coachRadios = document.querySelectorAll('input[name="coachPrima"]');
+  var espWrap = document.getElementById('esperienza-wrap');
+  coachRadios.forEach(function(r){
+    r.addEventListener('change', function(){
+      espWrap.classList.toggle('show', r.value === 'Sì' && r.checked);
+    });
+  });
+
+  // photo upload: compress client-side, keep as data URLs until submit
+  var MAX_PHOTOS = 4;
+  var photoFiles = [];
+
+  function compressImage(file){
+    return new Promise(function(resolve, reject){
+      var reader = new FileReader();
+      reader.onload = function(e){
+        var img = new Image();
+        img.onload = function(){
+          var maxW = 1100;
+          var scale = Math.min(1, maxW / img.width);
+          var canvas = document.createElement('canvas');
+          canvas.width = Math.max(1, Math.round(img.width * scale));
+          canvas.height = Math.max(1, Math.round(img.height * scale));
+          var ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          canvas.toBlob(function(blob){
+            if (!blob){ reject(new Error('blob-failed')); return; }
+            resolve(blob);
+          }, 'image/jpeg', 0.72);
+        };
+        img.onerror = function(){ reject(new Error('img-load-failed')); };
+        img.src = e.target.result;
+      };
+      reader.onerror = function(){ reject(new Error('read-failed')); };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function renderPhotoPreviews(){
+    var wrap = document.getElementById('photo-previews');
+    wrap.innerHTML = '';
+    photoFiles.forEach(function(p, idx){
+      var div = document.createElement('div');
+      div.className = 'photo-thumb';
+      var img = document.createElement('img');
+      img.src = p.previewUrl;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.setAttribute('aria-label', I18N[currentLang].removeLabel);
+      btn.textContent = '×';
+      btn.addEventListener('click', function(){
+        photoFiles.splice(idx, 1);
+        renderPhotoPreviews();
+        updatePhotoStatus();
+      });
+      div.appendChild(img);
+      div.appendChild(btn);
+      wrap.appendChild(div);
+    });
+  }
+
+  function updatePhotoStatus(msg){
+    var status = document.getElementById('photo-status');
+    status.textContent = msg || (photoFiles.length ? I18N[currentLang].photoReady(photoFiles.length, MAX_PHOTOS) : '');
+  }
+
+  document.getElementById('fotoInput').addEventListener('change', function(ev){
+    var files = Array.prototype.slice.call(ev.target.files || []);
+    var room = MAX_PHOTOS - photoFiles.length;
+    if (room <= 0){
+      updatePhotoStatus(I18N[currentLang].photoMax(MAX_PHOTOS));
+      ev.target.value = '';
+      return;
+    }
+    files = files.slice(0, room);
+    updatePhotoStatus(I18N[currentLang].photoPreparing);
+    Promise.all(files.map(function(f){
+      return compressImage(f).then(function(blob){ return {name: f.name, blob: blob, previewUrl: URL.createObjectURL(blob)}; });
+    })).then(function(results){
+      photoFiles = photoFiles.concat(results);
+      renderPhotoPreviews();
+      updatePhotoStatus();
+      ev.target.value = '';
+    }).catch(function(){
+      updatePhotoStatus(I18N[currentLang].photoError);
+      ev.target.value = '';
+    });
+  });
+
+  // move the compressed photos into the 4 hidden named file inputs FormSubmit
+  // will actually send as email attachments (the visible picker above is
+  // just for choosing/previewing, it has no name and is never submitted).
+  function attachPhotosForSubmit(){
+    var slots = [
+      document.getElementById('fotoSubmit1'), document.getElementById('fotoSubmit2'),
+      document.getElementById('fotoSubmit3'), document.getElementById('fotoSubmit4')
+    ];
+    photoFiles.forEach(function(p, i){
+      if (i >= slots.length || !slots[i]) return;
+      var dt = new DataTransfer();
+      dt.items.add(new File([p.blob], 'foto' + (i + 1) + '.jpg', {type: 'image/jpeg'}));
+      slots[i].files = dt.files;
+    });
+  }
+
+  // FormSubmit shows the raw field "name" as the label in the email — swap
+  // the internal field names for friendlier Italian labels right before the
+  // real submission (this doesn't touch the "id" attributes our own code uses).
+  var FRIENDLY_LABELS = {
+    nome:'Nome', cognome:'Cognome', eta:'Età', citta:'Città', telefono:'Telefono', social:'Social',
+    allenamento_precedente:'Allenamento precedente', daQuanto:'Da quanto tempo', coachPrima:'Coach in passato', esperienzaPrecedente:'Esperienza precedente',
+    obiettivi:'Obiettivi[]', obiettiviAltro:'Obiettivi (altro)', ostacoloPrincipale:'Ostacolo principale', giorniSettimana:'Giorni a settimana',
+    doveAlleni:'Dove si allena[]', tempoSessione:'Tempo a sessione', viaggiOrari:'Viaggi / orari', esperienzaPesi:'Esperienza pesi',
+    infortuni:'Infortuni', condizioniMediche:'Note mediche', altezza:'Altezza (cm)', peso:'Peso (kg)', vita:'Girovita (cm)',
+    fianchi:'Girofianchi (cm)', coscia:'Giro coscia (cm)', braccio:'Giro braccio (cm)', consensoFotoSocial:'Consenso foto per i social (senza viso)',
+    rapportoCibo:'Rapporto col cibo', dietePassate:'Diete passate', giornataTipo:'Giornata tipo', percheOra:'Perché ora',
+    successo90:'Successo in 90 giorni', livelloSupporto:'Livello supporto', comunicazionePreferita:'Comunicazione preferita[]',
+    pacchettoInteresse:'Pacchetto di interesse', notaFinale:'Nota finale', consenso:'Consenso generale'
+  };
+  function applyFriendlyLabels(){
+    form.querySelectorAll('[name]').forEach(function(el){
+      if (FRIENDLY_LABELS.hasOwnProperty(el.name)) el.name = FRIENDLY_LABELS[el.name];
+    });
+  }
+
+  var submitBtn = document.getElementById('submit-btn');
+  var errorMsg = document.getElementById('error-msg');
+
+  form.addEventListener('submit', function(ev){
+    var nome = document.getElementById('nome').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var consenso = document.getElementById('consenso').checked;
+    if (!nome || !email || !consenso){
+      ev.preventDefault();
+      errorMsg.classList.add('show');
+      var target = !nome ? document.getElementById('nome') : (!email ? document.getElementById('email') : document.getElementById('consenso'));
+      target.scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+    errorMsg.classList.remove('show');
+    document.getElementById('fs-subject').value = 'Nuova risposta al questionario – ' + [nome, document.getElementById('cognome').value.trim()].filter(Boolean).join(' ');
+    document.getElementById('fs-replyto').value = email;
+    attachPhotosForSubmit();
+    applyFriendlyLabels();
+    submitBtn.disabled = true;
+    submitBtn.textContent = I18N[currentLang].sending;
+    // no preventDefault from here: the browser does a real POST straight to
+    // FormSubmit (with the photo attachments), then comes back to _next.
+  });
+
+  // FormSubmit redirects back here with ?grazie=1 once the email is sent.
+  if (location.search.indexOf('grazie=1') !== -1){
+    document.getElementById('thanks').classList.add('show');
+  }
+
+  document.getElementById('thanks-close').addEventListener('click', function(){
+    document.getElementById('thanks').classList.remove('show');
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+
+})();
+</script>
