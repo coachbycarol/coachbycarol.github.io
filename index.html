@@ -144,6 +144,19 @@
   .consent input{margin-top:3px;flex:none;width:18px;height:18px;accent-color:var(--pink);}
   .consent p{font-size:13.5px;color:var(--ink-soft);}
 
+  /* example photo: shows the 4 poses to replicate */
+  .photo-example{margin:0 0 18px;background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-sm);padding:16px;display:grid;grid-template-columns:minmax(0,230px) 1fr;gap:18px;align-items:start;}
+  @media (max-width:560px){.photo-example{grid-template-columns:1fr;}}
+  .photo-example-img{display:block;border-radius:10px;overflow:hidden;border:1px solid var(--border-soft);}
+  .photo-example-img img{width:100%;height:auto;display:block;}
+  .photo-example-img:focus-visible{outline:2px solid var(--accent-2);outline-offset:2px;}
+  .photo-example-title{font-family:var(--font-script);font-size:24px;color:var(--accent-2);line-height:1.1;margin-bottom:8px;}
+  .photo-example ol{margin:0 0 12px;padding-left:20px;font-size:14px;}
+  .photo-example ol li{margin-bottom:3px;}
+  .photo-example ul{margin:0;padding-left:18px;font-size:13px;color:var(--ink-soft);}
+  .photo-example ul li{margin-bottom:4px;}
+  .photo-example-zoom{font-size:12.5px;color:var(--ink-faint);margin-top:8px;}
+
   .photo-drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:2px dashed var(--border);border-radius:var(--radius-sm);padding:30px 16px;cursor:pointer;text-align:center;background:var(--surface);transition:border-color .15s ease;}
   .photo-drop:hover{border-color:var(--pink);}
   .photo-drop-icon{font-size:30px;}
@@ -398,12 +411,37 @@
         <p class="hint" data-it="Se non hai un metro da sarta a portata di mano, lascia pure vuoto: le prendiamo insieme al primo check-in." data-en="If you don't have a tape measure handy, just leave it blank — we'll take them together at the first check-in."></p>
 
         <div class="field" style="margin-top:30px;">
-          <label class="q"><span data-it="Foto iniziali" data-en="Starting photos"></span> <span class="opt" data-it="(fronte, lato, retro — quello con cui ti senti più a tuo agio)" data-en="(front, side, back — whatever you're most comfortable with)"></span></label>
-          <p class="hint" style="margin-top:0;margin-bottom:14px;" data-it="Tocca il riquadro per scegliere le foto dalla galleria o scattarle sul momento. Arrivano a Carol insieme al resto delle risposte, restano visibili solo a lei." data-en="Tap the box to choose photos from your gallery or take them on the spot. They're sent to Carol along with the rest of your answers, and stay visible only to her."></p>
+          <label class="q"><span data-it="Foto iniziali" data-en="Starting photos"></span> <span class="opt" data-it="(4 pose: fronte, retro e i due profili)" data-en="(4 poses: front, back and both sides)"></span></label>
+          <p class="hint" style="margin-top:0;margin-bottom:14px;" data-it="Guarda l'esempio qui sotto e prova a replicare le stesse pose: così ogni check-in è confrontabile con il precedente. Se una posa ti mette a disagio, saltala pure." data-en="Check the example below and try to copy the same poses: that way every check-in can be compared with the previous one. If a pose makes you uncomfortable, feel free to skip it."></p>
+
+          <div class="photo-example">
+            <div>
+              <a class="photo-example-img" href="foto-esempio.jpg" target="_blank" rel="noopener" data-it-aria="Apri la foto di esempio a grandezza piena" data-en-aria="Open the example photo full size">
+                <img src="foto-esempio.jpg" width="900" height="1200" loading="lazy" data-it-alt="Esempio delle 4 pose: frontale, retro, profilo destro e profilo sinistro con le braccia tese in avanti" data-en-alt="Example of the 4 poses: front, back, right side and left side with arms stretched forward" alt="Esempio delle 4 pose: frontale, retro, profilo destro e profilo sinistro con le braccia tese in avanti">
+              </a>
+              <p class="photo-example-zoom" data-it="Tocca la foto per ingrandirla" data-en="Tap the photo to enlarge it"></p>
+            </div>
+            <div>
+              <p class="photo-example-title" data-it="Le pose da fare" data-en="The poses to take"></p>
+              <ol>
+                <li data-it="Di fronte, braccia rilassate lungo i fianchi" data-en="Front, arms relaxed by your sides"></li>
+                <li data-it="Di schiena, stessa posizione" data-en="Back, same position"></li>
+                <li data-it="Di profilo destro, braccia tese in avanti" data-en="Right side, arms stretched forward"></li>
+                <li data-it="Di profilo sinistro, braccia tese in avanti" data-en="Left side, arms stretched forward"></li>
+              </ol>
+              <ul>
+                <li data-it="Telefono appoggiato all'altezza del petto, corpo intero dalla testa ai piedi" data-en="Phone propped at chest height, full body from head to toe"></li>
+                <li data-it="Buona luce e, se riesci, sempre la stessa stanza" data-en="Good light and, if you can, always the same room"></li>
+                <li data-it="Intimo o abbigliamento aderente, postura naturale: niente pancia trattenuta" data-en="Underwear or fitted clothing, natural posture: no sucking in"></li>
+                <li data-it="Se preferisci, puoi sfocare o coprire il viso" data-en="If you prefer, you can blur or cover your face"></li>
+              </ul>
+            </div>
+          </div>
+
           <label id="photo-drop" for="fotoInput" class="photo-drop">
             <span class="photo-drop-icon">📷</span>
             <span class="photo-drop-text" data-it="Tocca per caricare le foto" data-en="Tap to upload photos"></span>
-            <span class="photo-drop-hint" data-it="JPG o PNG, fino a 4 foto" data-en="JPG or PNG, up to 4 photos"></span>
+            <span class="photo-drop-hint" data-it="JPG o PNG, fino a 4 foto · Arrivano solo a Carol" data-en="JPG or PNG, up to 4 photos · Sent only to Carol"></span>
           </label>
           <input type="file" id="fotoInput" accept="image/*" multiple style="display:none;">
           <input type="file" id="fotoSubmit1" name="Foto 1" style="display:none;">
@@ -523,7 +561,7 @@
 
   <footer>
     <span data-it="Coach by Carol — questo questionario resta tra te e Carol." data-en="Coach by Carol — this questionnaire stays between you and Carol."></span>
-    <br><span style="opacity:.5;">build 2026-09-03-sito-v1</span>
+    <br><span style="opacity:.5;">build 2026-10-16-foto-esempio</span>
   </footer>
 
   <div id="thanks" role="alert" aria-live="polite">
@@ -589,6 +627,11 @@
       var hasEn = el.hasAttribute('data-en-aria');
       var val = lang === 'en' && hasEn ? el.getAttribute('data-en-aria') : el.getAttribute('data-it-aria');
       el.setAttribute('aria-label', val);
+    });
+    document.querySelectorAll('[data-it-alt]').forEach(function(el){
+      var hasEn = el.hasAttribute('data-en-alt');
+      var val = lang === 'en' && hasEn ? el.getAttribute('data-en-alt') : el.getAttribute('data-it-alt');
+      el.setAttribute('alt', val);
     });
     document.querySelectorAll('.lang-btn').forEach(function(b){
       var active = b.getAttribute('data-lang') === lang;
